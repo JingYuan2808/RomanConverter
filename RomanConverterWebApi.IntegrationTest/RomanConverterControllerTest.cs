@@ -30,6 +30,15 @@ namespace RomanConverterWebApi.IntegrationTest
         }
 
         [Test]
+        public async Task RomanToDigitalTestFailed()
+        {
+            var response = await _client.GetAsync("RomanConverter/RomanToDigital/xx");
+            Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
+            string content = response.Content.ReadAsStringAsync().Result;
+            Assert.AreEqual("Specified argument was out of the range of valid values. (Parameter 'Insert only Roman character (IVXLCDM)')", content);
+        }
+
+        [Test]
         public async Task DigitalToRomanTestSucceed()
         {
             var response = await _client.GetAsync("RomanConverter/DigitalToRoman/20");
@@ -44,7 +53,7 @@ namespace RomanConverterWebApi.IntegrationTest
             var response = await _client.GetAsync("RomanConverter/DigitalToRoman/20000");
             Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
             string content = response.Content.ReadAsStringAsync().Result;
-            Assert.AreEqual("Specified argument was out of the range of valid values. (Parameter 'insert value between 1 and 4000')", content);
+            Assert.AreEqual("Specified argument was out of the range of valid values. (Parameter 'Insert value between 1 and 4000')", content);
         }
 
     }

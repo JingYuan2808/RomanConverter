@@ -20,7 +20,14 @@ namespace RomanConvertWebApi.Controllers
         [Route("[controller]/RomanToDigital/{roman}")]
         public IActionResult RomanToDigital(string roman)
         {
-            return Ok(_romanConverterService.RomanToDigital(roman));
+            try
+            {
+                return Ok(_romanConverterService.RomanToDigital(roman));
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                return StatusCode((int) HttpStatusCode.BadRequest, ex.Message);
+            }
         }
 
         [HttpGet]
@@ -35,14 +42,13 @@ namespace RomanConvertWebApi.Controllers
             {
                 return StatusCode((int)HttpStatusCode.BadRequest, ex.Message);
             }
-            
         }
 
         [HttpGet]
         [Route("[controller]")]
         public string Get()
         {
-            return "API: RomanConverter/RomanToDigital/roman and RomanConverter/DigitalToRoman/digital";
+            return "API Examples: RomanConverter/RomanToDigital/XXII and RomanConverter/DigitalToRoman/2120";
 
         }
     }

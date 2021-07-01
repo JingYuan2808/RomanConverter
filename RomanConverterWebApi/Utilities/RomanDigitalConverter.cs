@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace RomanConvertWebApi.Utilities
 {
@@ -18,6 +19,11 @@ namespace RomanConvertWebApi.Utilities
 
         public int RomanToDigital(string roman)
         {
+            if(roman.Any(x=>!RomanMap.ContainsKey(x)))
+            {
+                throw new ArgumentOutOfRangeException("Insert only Roman character (IVXLCDM)");
+            }
+
             int number = 0;
             for (int i = 0; i < roman.Length; i++)
             {
@@ -38,7 +44,7 @@ namespace RomanConvertWebApi.Utilities
         public string DigitalToRoman(int number)
         {
             if ((number < 0) || (number > 4000))
-                throw new ArgumentOutOfRangeException("insert value between 1 and 4000");
+                throw new ArgumentOutOfRangeException("Insert value between 1 and 4000");
             if (number < 1) return string.Empty;
             if (number >= 1000) return "M" + DigitalToRoman(number - 1000);
             if (number >= 900) return "CM" + DigitalToRoman(number - 900);

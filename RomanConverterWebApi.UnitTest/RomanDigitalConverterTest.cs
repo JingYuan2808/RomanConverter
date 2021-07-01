@@ -18,9 +18,13 @@ namespace RomanConvertWebApi.test
             Assert.AreEqual(digital, new RomanDigitalConverter().RomanToDigital(roman));
         }
 
-        [TestCaseSource(typeof(DigitalToRomanNegativeCases))]
-        
+        [TestCaseSource(typeof(RomanToDigitalNegativeCases))]
+        public void RomanToDigitalTest_InputOutOfRange_RaiseException(string roman)
+        {
+            Assert.Throws<ArgumentOutOfRangeException>( ()=>new RomanDigitalConverter().RomanToDigital(roman));
+        }
 
+        [TestCaseSource(typeof(DigitalToRomanNegativeCases))]
         public void DigitalToRomanTest_InputOutOfRange_RaiseException(int digital)
         {
            Assert.Throws<ArgumentOutOfRangeException>( ()=>new RomanDigitalConverter().DigitalToRoman(digital));
@@ -54,6 +58,15 @@ namespace RomanConvertWebApi.test
             {
                 yield return -1;
                 yield return 4001;
+            }
+        }
+
+        class RomanToDigitalNegativeCases : IEnumerable
+        {
+            public IEnumerator GetEnumerator()
+            {
+                yield return "XXXCCKK";
+                yield return "Xxx";
             }
         }
 
