@@ -40,7 +40,6 @@ namespace RomanConvertWebApi.test
         {
             public IEnumerator GetEnumerator()
             {
-                yield return new object[] { 0, "" };
                 yield return new object[] { 1, "I" };
                 yield return new object[] { 4, "IV" };
                 yield return new object[] { 9, "IX" };
@@ -56,6 +55,7 @@ namespace RomanConvertWebApi.test
         {
             public IEnumerator GetEnumerator()
             {
+                yield return 0;
                 yield return -1;
                 yield return 4001;
             }

@@ -11,7 +11,6 @@ namespace RomanConverterWebApi.IntegrationTest
     {
         private StartupWebApplicationFactory<Startup, RomanConverterController> _webApplicationFactory;
         private HttpClient _client;
-        private const string _endpoint = "protectedattributesetups";
 
         [SetUp]
         public void Setup()
