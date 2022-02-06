@@ -32,10 +32,3 @@ steps:
     targetPath: '$(Pipeline.Workspace)'
     artifact: 'drop'
     publishLocation: 'pipeline'
-- task: AzureRmWebAppDeployment@4
-  inputs:
-    ConnectionType: 'AzureRM'
-    azureSubscription: 'Azure subscription 1(8f4eb78c-49c0-4d32-89ad-35507f65c828)'
-    appType: 'apiApp'
-    WebAppName: 'RomanConvertTest'
-    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
