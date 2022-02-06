@@ -15,12 +15,8 @@ variables:
 steps:
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
-- task: VSTest@2
-  displayName: 'Test Assemblies'
+- task: DotNetCoreCLI@2
   inputs:
-    testAssemblyVer2: |
-     **\$(BuildConfiguration)\*test*.dll
-     !**\obj\**
-    codeCoverageEnabled: true
-    platform: '$(BuildPlatform)'
-    configuration: '$(BuildConfiguration)'
+    command: 'test'
+    projects: '''**/*Test/*.csproj'''
+    testRunTitle: 'unit tests'
