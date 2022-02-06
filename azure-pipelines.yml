@@ -16,7 +16,8 @@ steps:
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
 - task: DotNetCoreCLI@2
+  displayName: 'Unit Test $(buildConfiguration)'
   inputs:
     command: 'test'
-    projects: '''**/*Test/*.csproj'
+    projects: '**/RomanConverterWebApi.IntegrationTest.csproj'
     testRunTitle: 'unit tests'
