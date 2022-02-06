@@ -18,5 +18,5 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'test'
-    projects: '''**/*Test/*.csproj'''
+    projects: '''**/*Test/*.csproj'
     testRunTitle: 'unit tests'
