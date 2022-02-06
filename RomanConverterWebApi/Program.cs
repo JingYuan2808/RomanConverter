@@ -16,6 +16,7 @@ namespace RomanConvertWebApi
             CreateHostBuilder(args).Build().Run();
         }
 
+        // Add a comment
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
