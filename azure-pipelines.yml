@@ -27,6 +27,13 @@ steps:
     command: 'test'
     projects: '**/RomanConverterWebApi.IntegrationTest.csproj'
     testRunTitle: 'unit tests'
+- task: DotNetCoreCLI@2
+  displayName: 'publish $(buildConfiguration)'
+  inputs:
+    command: 'publish'
+    projects: '**/RomanConverterWebApi.csproj'
+    arguments: --configuration $(buildConfiguration) --output  $(build.ArtifactStagingDirectory)
+    zipAfterPublish: true
 - task: PublishPipelineArtifact@1
   inputs:
     targetPath: '$(Pipeline.Workspace)'
