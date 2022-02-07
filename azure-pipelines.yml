@@ -45,9 +45,14 @@ steps:
     targetPath: '$(Pipeline.Workspace)'
     artifact: 'drop'
     publishLocation: 'pipeline'
+- task: CopyFiles@2
+  inputs:
+    Contents: |
+      /**/*.SystemTest.dll)
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
 - task: PublishPipelineArtifact@1
   inputs:
-    targetPath: '$(Pipeline.Workspace)/RomanConverterWebApi.SystemTest'
+    targetPath: '$(Pipeline.Workspace)'
     artifact: 'test'
     publishLocation: 'pipeline'
 
