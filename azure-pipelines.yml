@@ -25,8 +25,14 @@ steps:
   displayName: 'Unit Test $(buildConfiguration)'
   inputs:
     command: 'test'
-    projects: '**/RomanConverterWebApi.IntegrationTest.csproj'
+    projects: '**/RomanConverterWebApi.UnitTest.csproj'
     testRunTitle: 'unit tests'
+- task: DotNetCoreCLI@2
+  displayName: 'Integration Test $(buildConfiguration)'
+  inputs:
+    command: 'test'
+    projects: '**/RomanConverterWebApi.IntegrationTest.csproj'
+    testRunTitle: 'integration tests'
 - task: DotNetCoreCLI@2
   displayName: 'publish $(buildConfiguration)'
   inputs:
