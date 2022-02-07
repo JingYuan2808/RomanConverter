@@ -42,7 +42,7 @@ steps:
     zipAfterPublish: true
 - task: CopyFiles@2
   inputs:
-    SourceFolder: '$(Build.SourcesDirectory)'
+    SourceFolder: '$(Build.SourcesDirectory)/RomanConverterWebApi.SystemTest'
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
 - task: PublishPipelineArtifact@1
   inputs:
