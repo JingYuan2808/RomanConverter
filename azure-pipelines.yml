@@ -40,11 +40,6 @@ steps:
     projects: '**/RomanConverterWebApi.csproj'
     arguments: --configuration $(buildConfiguration) --output  $(build.ArtifactStagingDirectory)
     zipAfterPublish: true
-- task: PublishPipelineArtifact@1
-  inputs:
-    targetPath: '$(Pipeline.Workspace)'
-    artifact: 'drop'
-    publishLocation: 'pipeline'
 - task: CopyFiles@2
   inputs:
     SourceFolder: '$(Build.SourcesDirectory)/RomanConverterWebApi.SystemTest'
@@ -52,6 +47,6 @@ steps:
 - task: PublishPipelineArtifact@1
   inputs:
     targetPath: '$(Pipeline.Workspace)'
-    artifact: 'test'
+    artifact: 'drop'
     publishLocation: 'pipeline'
 
