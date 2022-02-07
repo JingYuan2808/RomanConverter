@@ -47,8 +47,7 @@ steps:
     publishLocation: 'pipeline'
 - task: CopyFiles@2
   inputs:
-    Contents: |
-      /**/*.SystemTest.dll)
+    SourceFolder: '$(Build.SourcesDirectory)'
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
 - task: PublishPipelineArtifact@1
   inputs:
