@@ -48,6 +48,6 @@ steps:
 - task: PublishPipelineArtifact@1
   inputs:
     targetPath: '$(Pipeline.Workspace)/RomanConverterWebApi.SystemTest'
-    artifact: 'drop'
+    artifact: 'test'
     publishLocation: 'pipeline'
 
