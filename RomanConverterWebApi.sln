@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RomanConverterWebApi", "Rom
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RomanConverterWebApi.UnitTest", "RomanConverterWebApi.UnitTest\RomanConverterWebApi.UnitTest.csproj", "{A6817707-B883-4BE2-8E92-DC90ECB7474F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RomanConverterWebApi.IntegrationTest", "RomanConverterWebApi.IntegrationTest\RomanConverterWebApi.IntegrationTest.csproj", "{B236A8D9-ED19-4E9C-BAF8-1B957C1B4B17}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RomanConverterWebApi.IntegrationTest", "RomanConverterWebApi.IntegrationTest\RomanConverterWebApi.IntegrationTest.csproj", "{B236A8D9-ED19-4E9C-BAF8-1B957C1B4B17}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RomanConverterWebApi.SystemTest", "RomanConverterWebApi.SystemTest\RomanConverterWebApi.SystemTest.csproj", "{DCFFCBAB-28A0-4362-AD16-E71CA258E2AF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{B236A8D9-ED19-4E9C-BAF8-1B957C1B4B17}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B236A8D9-ED19-4E9C-BAF8-1B957C1B4B17}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B236A8D9-ED19-4E9C-BAF8-1B957C1B4B17}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCFFCBAB-28A0-4362-AD16-E71CA258E2AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCFFCBAB-28A0-4362-AD16-E71CA258E2AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCFFCBAB-28A0-4362-AD16-E71CA258E2AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCFFCBAB-28A0-4362-AD16-E71CA258E2AF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
