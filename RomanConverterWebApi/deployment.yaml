@@ -1,0 +1,33 @@
+﻿apiVersion: v1
+kind: deployment
+metadata:
+  name: myapptest
+spec:
+  replicas: 1
+  selector:
+    matchlabels:
+       app:myapptest
+  template:
+    metadata:
+       labels:myapptest
+    spec:
+       containers:
+       - name: myapptest
+         image: jynsimcorp/romanconvertapi:version1
+         ports:
+       - containerPort: 80
+      imagePullSecrets:
+        - name: acr-secret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: myapptest
+spec:
+  selector:
+    app:myapptest
+  ports:
+    - protocol: TCP
+      port: 80
+      targetport: 80
+
