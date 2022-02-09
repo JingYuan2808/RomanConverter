@@ -9,8 +9,8 @@ FROM mcr.microsoft.com/dotnet/sdk:3.1 AS build
 WORKDIR /src
 COPY ["RomanConverterWebApi.csproj", "RomanConverterWebApi/"]
 RUN dotnet restore "RomanConverterWebApi/RomanConverterWebApi.csproj"
-COPY . .
 WORKDIR "/src/RomanConverterWebApi"
+COPY . .
 RUN dotnet build "RomanConverterWebApi.csproj" -c Release -o /app/build
 
 FROM build AS publish
