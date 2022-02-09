@@ -7,7 +7,7 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:3.1 AS build
 WORKDIR /src
-COPY ["RomanConverterWebApi/RomanConverterWebApi.csproj", "RomanConverterWebApi/"]
+COPY ["src/RomanConverterWebApi/RomanConverterWebApi.csproj", "RomanConverterWebApi/"]
 RUN dotnet restore "RomanConverterWebApi/RomanConverterWebApi.csproj"
 COPY . .
 WORKDIR "/src/RomanConverterWebApi"
