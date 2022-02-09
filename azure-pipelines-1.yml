@@ -7,44 +7,58 @@ trigger:
 - master
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: 'ubuntu-latest'
 
 variables:
   buildConfiguration: 'Release'
+  dockerRegistryServiceConnection: 'jynsimcorpdockerregistry'
+  imageRepository: 'RomanConverterWebApi'
+  containerRegistry: 'jynappacr01.azurecr.io'
+  dockerfilePath: 'RomanConverter/RomanConverterWebApi/Dockerfile'
+  tag: '$(Build.BuildId)'
+  deploymentFile: 'deployment.yaml'
 
-steps:
-- task: PowerShell@2
-  inputs:
-    targetType: 'inline'
-    script: |
-      $date=$(Get-Date -Format g);
-      Write-Host "##vso[task.setvariable variable=time]$date"
-- script: dotnet build --configuration $(buildConfiguration)
-  displayName: 'dotnet build $(buildConfiguration)'
-- task: DotNetCoreCLI@2
-  displayName: 'Unit Test $(buildConfiguration)'
-  inputs:
-    command: 'test'
-    projects: '**/RomanConverterWebApi.UnitTest.csproj'
-    testRunTitle: 'unit tests'
-- task: DotNetCoreCLI@2
-  displayName: 'Integration Test $(buildConfiguration)'
-  inputs:
-    command: 'test'
-    projects: '**/RomanConverterWebApi.IntegrationTest.csproj'
-    testRunTitle: 'integration tests'
-- task: DotNetCoreCLI@2
-  displayName: 'publish $(buildConfiguration)'
-  inputs:
-    command: 'publish'
-    projects: '**/RomanConverterWebApi.csproj'
-    arguments: --configuration $(buildConfiguration) --output  $(build.ArtifactStagingDirectory)
-    zipAfterPublish: true
-- task: CopyFiles@2
-  inputs:
-    SourceFolder: '$(Build.SourcesDirectory)/RomanConverterWebApi.SystemTest'
-    TargetFolder: '$(Build.ArtifactStagingDirectory)'
-- task: Docker@2
-  inputs:
-    command: 'buildAndPush'
-    Dockerfile: '**/Dockerfile'
+jobs:
+  - job: build
+    steps:
+    - task: PowerShell@2
+      inputs:
+        targetType: 'inline'
+        script: |
+          $date=$(Get-Date -Format g);
+          Write-Host "##vso[task.setvariable variable=time]$date"
+    - script: dotnet build --configuration $(buildConfiguration)
+      displayName: 'dotnet build $(buildConfiguration)'
+    - task: DotNetCoreCLI@2
+      displayName: 'Unit Test $(buildConfiguration)'
+      inputs:
+        command: 'test'
+        projects: '**/RomanConverterWebApi.UnitTest.csproj'
+        testRunTitle: 'unit tests'
+    - task: DotNetCoreCLI@2
+      displayName: 'Integration Test $(buildConfiguration)'
+      inputs:
+        command: 'test'
+        projects: '**/RomanConverterWebApi.IntegrationTest.csproj'
+        testRunTitle: 'integration tests'
+    - task: DotNetCoreCLI@2
+      displayName: 'publish $(buildConfiguration)'
+      inputs:
+        command: 'publish'
+        projects: '**/RomanConverterWebApi.csproj'
+        arguments: --configuration $(buildConfiguration) --output  $(build.ArtifactStagingDirectory)
+        zipAfterPublish: true
+    - task: CopyFiles@2
+      inputs:
+        SourceFolder: '$(Build.SourcesDirectory)/RomanConverterWebApi.SystemTest'
+        TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    - task: Docker@2
+      displayName: Build and push an image to container registry
+      inputs:
+        command: buildAndPush
+        repository: $(imageRepository)
+        dockerfile: $(dockerfilePath)
+        containerRegistry: $(dockerRegistryServiceConnection)
+        buildContext: $(Build.SourcesDirectory)/RomanConverterWebApi
+        tags: |
+          $(tag)
