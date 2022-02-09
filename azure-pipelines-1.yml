@@ -12,6 +12,7 @@ pool:
 variables:
   buildConfiguration: 'Release'
   dockerRegistryServiceConnection: 'jynsimcorpdockerregistry'
+  acrRegistryServiceConnection: 'jynappacr01'
   imageRepository: 'RomanConverterWebApi'
   containerRegistry: 'jynappacr01.azurecr.io'
   dockerfilePath: 'RomanConverterWebApi/Dockerfile'
@@ -22,10 +23,15 @@ jobs:
   - job: build
     steps:
     - task: Docker@2
+      displayName: Login to ACR
+      inputs:
+        command: login
+        containerRegistry: jynacc
+    - task: Docker@2
       displayName: Build and push an image to container registry
       inputs:
         command: buildAndPush
-        repository: $(containerRegistry)/$(imageRepository)
+        repository: $(containerRegistry/imageRepository)
         dockerfile: $(dockerfilePath)
         containerRegistry: $(dockerRegistryServiceConnection)
         buildContext: $(Build.SourcesDirectory)/RomanConverterWebApi
