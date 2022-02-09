@@ -14,7 +14,7 @@ variables:
   dockerRegistryServiceConnection: 'jynsimcorpdockerregistry'
   imageRepository: 'RomanConverterWebApi'
   containerRegistry: 'jynappacr01.azurecr.io'
-  dockerfilePath: 'Dockerfile'
+  dockerfilePath: 'Dockerfile/RomanConverterWebApi'
   tag: '$(Build.BuildId)'
   deploymentFile: 'deployment.yaml'
 
