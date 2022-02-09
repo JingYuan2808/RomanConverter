@@ -1,0 +1,50 @@
+# ASP.NET Core
+# Build and test ASP.NET Core projects targeting .NET Core.
+# Add steps that run tests, create a NuGet package, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
+trigger:
+- master
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  buildConfiguration: 'Release'
+
+steps:
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
+      $date=$(Get-Date -Format g);
+      Write-Host "##vso[task.setvariable variable=time]$date"
+- script: dotnet build --configuration $(buildConfiguration)
+  displayName: 'dotnet build $(buildConfiguration)'
+- task: DotNetCoreCLI@2
+  displayName: 'Unit Test $(buildConfiguration)'
+  inputs:
+    command: 'test'
+    projects: '**/RomanConverterWebApi.UnitTest.csproj'
+    testRunTitle: 'unit tests'
+- task: DotNetCoreCLI@2
+  displayName: 'Integration Test $(buildConfiguration)'
+  inputs:
+    command: 'test'
+    projects: '**/RomanConverterWebApi.IntegrationTest.csproj'
+    testRunTitle: 'integration tests'
+- task: DotNetCoreCLI@2
+  displayName: 'publish $(buildConfiguration)'
+  inputs:
+    command: 'publish'
+    projects: '**/RomanConverterWebApi.csproj'
+    arguments: --configuration $(buildConfiguration) --output  $(build.ArtifactStagingDirectory)
+    zipAfterPublish: true
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(Build.SourcesDirectory)/RomanConverterWebApi.SystemTest'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+- task: Docker@2
+  inputs:
+    command: 'buildAndPush'
+    Dockerfile: '**/Dockerfile'
