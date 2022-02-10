@@ -18,7 +18,7 @@ variables:
   dockerfilePath: 'RomanConverterWebApi/Dockerfile'
   tag: '$(Build.BuildId)'
   deploymentFile: 'deployment.yaml'
-  imagePullSecret: '${containerRegistry}secret'
+  imagePullSecret: 'containersecret'
 
 jobs:
   - job: build
