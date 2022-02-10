@@ -50,7 +50,7 @@ jobs:
         action: 'deploy'
         kubernetesServiceConnection: 'yuanjingdkkuberbate'
         namespace: 'azure-vote'
-        manifests: '$(Pipeline.Workspace)/RomanConverterWebApi/$(deploymentFile)'
+        manifests: '$(Build.SourcesDirectory)RomanConverterWebApi/$(deploymentFile)'
         imagePullSecrets: |
                 $(imagePullSecret)
         containers: |
