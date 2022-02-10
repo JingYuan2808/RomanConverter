@@ -31,7 +31,7 @@ jobs:
       displayName: Build and push an image to container registry
       inputs:
         command: buildAndPush
-        repository: $(containerRegistry)/$(imageRepository)
+        repository: $(containerRegistry)/$(imageRepository):${{github.run_number}}
         dockerfile: $(dockerfilePath)
         containerRegistry: $(dockerRegistryServiceConnection)
         buildContext: $(Build.SourcesDirectory)/RomanConverterWebApi
