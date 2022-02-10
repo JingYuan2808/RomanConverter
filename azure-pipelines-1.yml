@@ -43,6 +43,7 @@ jobs:
         action: createSecret
         secretName: $(imagePullSecret)
         dockerRegistryEndpoint: $(dockerRegistryServiceConnection)
+        kubernetesServiceConnection: 'yuanjingdkkuberbate'
     - task: KubernetesManifest@0
       inputs:
         action: 'deploy'
