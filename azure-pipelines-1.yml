@@ -37,3 +37,19 @@ jobs:
         buildContext: $(Build.SourcesDirectory)/RomanConverterWebApi
         tags: |
           $(tag)
+    - task: KubernetesManifest@0
+      displayName: Create imagePullSecret
+      inputs:
+        action: createSecret
+        secretName: $(imagePullSecret)
+        dockerRegistryEndpoint: $(dockerRegistryServiceConnection)
+    - task: KubernetesManifest@0
+      inputs:
+        action: 'deploy'
+        kubernetesServiceConnection: 'yuanjingdkkuberbate'
+        namespace: 'azure-vote'
+        manifests: '$(Pipeline.Workspace)/RomanConverterWebApi/$(deploymentFile)'
+        imagePullSecrets: |
+                $(imagePullSecret)
+        containers: |
+                $(containerRegistry)/$(imageRepository):$(tag)
