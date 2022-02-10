@@ -52,6 +52,6 @@ jobs:
         namespace: 'azure-vote'
         manifests: '$(Build.SourcesDirectory)/RomanConverterWebApi/$(deploymentFile)'
         imagePullSecrets: |
-                $(imagePullSecret)
+          $(imagePullSecret)
         containers: |
-                $(containerRegistry)/$(imageRepository):$(tag)
+          $(containerRegistry)/$(imageRepository):$(tag)
