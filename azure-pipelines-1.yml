@@ -18,6 +18,7 @@ variables:
   dockerfilePath: 'RomanConverterWebApi/Dockerfile'
   tag: '$(Build.BuildId)'
   deploymentFile: 'deployment.yaml'
+  github: Get-Content '${{ github.run_number }}'
 
 jobs:
   - job: build
@@ -31,7 +32,7 @@ jobs:
       displayName: Build and push an image to container registry
       inputs:
         command: buildAndPush
-        repository: $(containerRegistry)/$(imageRepository):${{ github.run_number }}
+        repository: $(containerRegistry)/$(imageRepository):github
         dockerfile: $(dockerfilePath)
         containerRegistry: $(dockerRegistryServiceConnection)
         buildContext: $(Build.SourcesDirectory)/RomanConverterWebApi
